@@ -7,6 +7,8 @@ import com.fleet_hub.fleethub.repository.FilialRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -68,12 +70,15 @@ public class FilialService {
         return FilialResponseDTO.fromEntity(filialEditada);
     }
 
-    /*
+
     @Transactional(readOnly = true)
     public FilialResponseDTO buscarPorId(Long id){
+        Filial filialBuscada = filialRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Não existe filial com o id "+id));
 
+        return FilialResponseDTO.fromEntity(filialBuscada);
     }
-
+    /*
     @Transactional(readOnly = true)
     public FilialResponseDTO listarPorStatus(StatusEntidade statusEntidade){
 

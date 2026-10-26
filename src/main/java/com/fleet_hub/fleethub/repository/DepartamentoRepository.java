@@ -12,6 +12,5 @@ import java.util.Set;
 public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
     Optional<Departamento> findByNome(String nome);
     Optional<Departamento> findByStatus(StatusEntidade statusEntidade);
-    boolean existsByNomeIgnoreCase(String nome);
     boolean existsByNomeIgnoreCaseAndFilialId(String nome, Long filialId);
 }

@@ -20,10 +20,10 @@ public class DepartamentoService {
 
     @Transactional
     public DepartamentoResponseDTO cadastrar(DepartamentoRequestDTO requestDTO){
-        boolean nomeJaExiste = departamentoRepository.existsByNomeIgnoreCase(requestDTO.nome());
+        boolean jaExisteNessaFilial = departamentoRepository.existsByNomeIgnoreCaseAndFilialId(requestDTO.nome(), requestDTO.filialId());
 
-        if (nomeJaExiste){
-            throw new RuntimeException("Ja existe um departamento com o nome "+requestDTO.nome());
+        if (jaExisteNessaFilial){
+            throw new RuntimeException("Ja existe um departamento com o nome "+requestDTO.nome()+" nessa filial.");
         }
 
         Filial filialBuscada = filialRepository.findById(requestDTO.filialId())

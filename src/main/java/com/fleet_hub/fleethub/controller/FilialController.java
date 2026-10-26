@@ -52,6 +52,11 @@ public class FilialController {
         return ResponseEntity.ok(filialService.buscarPorSigla(sigla));
     }
 
+    @GetMapping("/uf/{uf}")
+    public ResponseEntity<FilialResponseDTO> buscarPorUf(@PathVariable String uf){
+        return ResponseEntity.ok(filialService.buscarPorUf(uf));
+    }
+
     @GetMapping("/status/{status}")
     public ResponseEntity<List<FilialResponseDTO>> listarPorStatus(@PathVariable StatusEntidade status){
         return ResponseEntity.ok(filialService.listarPorStatus(status));

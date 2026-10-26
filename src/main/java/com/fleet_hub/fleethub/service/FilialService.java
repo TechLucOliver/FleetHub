@@ -97,6 +97,14 @@ public class FilialService {
     }
 
     @Transactional(readOnly = true)
+    public FilialResponseDTO buscarPorUf(String uf){
+        Filial filialBuscada = filialRepository.findByUfIgnoreCase(uf)
+                .orElseThrow(() -> new RuntimeException("Filial não encontrada com a uf "+uf));
+
+        return FilialResponseDTO.fromEntity(filialBuscada);
+    }
+
+    @Transactional(readOnly = true)
     public List<FilialResponseDTO> listarPorStatus(StatusEntidade statusEntidade){
         return filialRepository.findByStatus(statusEntidade)
                 .stream()

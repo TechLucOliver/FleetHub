@@ -89,6 +89,14 @@ public class FilialService {
     }
 
     @Transactional(readOnly = true)
+    public FilialResponseDTO buscarPorSigla(String sigla){
+        Filial filialBuscada = filialRepository.findBySiglaIgnoreCase(sigla)
+                .orElseThrow(() -> new RuntimeException("Filial não encontrada com a sigla "+sigla));
+
+        return FilialResponseDTO.fromEntity(filialBuscada);
+    }
+
+    @Transactional(readOnly = true)
     public List<FilialResponseDTO> listarPorStatus(StatusEntidade statusEntidade){
         return filialRepository.findByStatus(statusEntidade)
                 .stream()

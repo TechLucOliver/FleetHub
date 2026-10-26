@@ -42,9 +42,14 @@ public class FilialController {
         return ResponseEntity.ok(filialService.buscarPorId(id));
     }
 
-    @GetMapping("/buscar/{cnpj}")
+    @GetMapping("/cnpj/{cnpj}")
     public ResponseEntity<FilialResponseDTO> buscarPorCnpj(@PathVariable String cnpj){
         return ResponseEntity.ok(filialService.buscarPorCnpj(cnpj));
+    }
+
+    @GetMapping("/sigla/{sigla}")
+    public ResponseEntity<FilialResponseDTO> buscarPorSigla(@PathVariable String sigla){
+        return ResponseEntity.ok(filialService.buscarPorSigla(sigla));
     }
 
     @GetMapping("/status/{status}")

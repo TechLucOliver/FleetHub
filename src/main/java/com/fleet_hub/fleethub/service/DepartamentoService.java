@@ -2,6 +2,7 @@ package com.fleet_hub.fleethub.service;
 
 import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoRequestDTO;
 import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoResponseDTO;
+import com.fleet_hub.fleethub.enums.StatusEntidade;
 import com.fleet_hub.fleethub.model.Departamento;
 import com.fleet_hub.fleethub.model.Filial;
 import com.fleet_hub.fleethub.repository.DepartamentoRepository;
@@ -53,6 +54,14 @@ public class DepartamentoService {
                 .orElseThrow(() -> new RuntimeException("Nenhum departamento encontrado com o id "+id));
 
         return DepartamentoResponseDTO.fromEntity(departamentoBuscado);
+    }
+
+    @Transactional(readOnly = true)
+    public List<DepartamentoResponseDTO> listarPorStatus(StatusEntidade statusEntidade){
+        return departamentoRepository.findAllByStatus(statusEntidade)
+                .stream()
+                .map(DepartamentoResponseDTO::fromEntity)
+                .toList();
     }
 
 }

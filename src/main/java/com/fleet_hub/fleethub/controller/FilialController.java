@@ -29,4 +29,10 @@ public class FilialController {
         return ResponseEntity.ok(filialService.listarTodos());
     }
 
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<FilialResponseDTO> editar(@PathVariable Long id, @Valid @RequestBody FilialRequestDTO requestDTO){
+        FilialResponseDTO responseDTO = filialService.editar(id, requestDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
 }

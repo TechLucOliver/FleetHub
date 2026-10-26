@@ -51,29 +51,41 @@ public class FilialService {
                 .toList();
     }
 
+
+    @Transactional
+    public FilialResponseDTO editar(Long id, FilialRequestDTO requestDTO){
+        Filial filialBuscada = filialRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Filial não encontrada com o id "+id));
+
+        filialBuscada.setRazaoSocial(requestDTO.razaoSocial());
+        filialBuscada.setNomeFantasia(requestDTO.nomeFantasia());
+        filialBuscada.setCnpj(requestDTO.cnpj());
+        filialBuscada.setSigla(requestDTO.sigla());
+        filialBuscada.setCidade(requestDTO.cidade());
+        filialBuscada.setUf(requestDTO.uf());
+
+        Filial filialEditada = filialRepository.save(filialBuscada);
+        return FilialResponseDTO.fromEntity(filialEditada);
+    }
+
     /*
-    @Transactional
-    public FilialResposeDTO editar(Long id, FilialRequestDTO requestDTO){
+    @Transactional(readOnly = true)
+    public FilialResponseDTO buscarPorId(Long id){
 
     }
 
     @Transactional(readOnly = true)
-    public FilialResposeDTO buscarPorId(Long id){
-
-    }
-
-    @Transactional(readOnly = true)
-    public FilialResposeDTO listarPorStatus(StatusEntidade statusEntidade){
+    public FilialResponseDTO listarPorStatus(StatusEntidade statusEntidade){
 
     }
 
     @Transactional
-    public FilialResposeDTO inativar(Long id){
+    public FilialResponseDTO inativar(Long id){
 
     }
 
     @Transactional
-    public FilialResposeDTO reativar(Long id){
+    public FilialResponseDTO reativar(Long id){
 
     }
 

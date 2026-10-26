@@ -48,4 +48,9 @@ public class DepartamentoController {
         return ResponseEntity.ok(departamentoService.editar(id, requestDTO));
     }
 
+    @PatchMapping("/inativar/{id}")
+    public ResponseEntity<DepartamentoResponseDTO> inativar(@PathVariable Long id){
+        return ResponseEntity.ok(departamentoService.inativar(id));
+    }
+
 }

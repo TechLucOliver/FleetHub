@@ -78,4 +78,18 @@ public class DepartamentoService {
 
     }
 
+    @Transactional
+    public DepartamentoResponseDTO inativar(Long id){
+        Departamento departamentoBuscado = departamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Não existe um departamento com o id "+id));
+
+        if (departamentoBuscado.getStatus() == StatusEntidade.INATIVO){
+            throw new IllegalArgumentException("O departamento já está inativo.");
+        }
+
+        departamentoBuscado.setStatus(StatusEntidade.INATIVO);
+        Departamento departamentoInativado = departamentoRepository.save(departamentoBuscado);
+        return DepartamentoResponseDTO.fromEntity(departamentoInativado);
+    }
+
 }

@@ -42,6 +42,11 @@ public class FilialController {
         return ResponseEntity.ok(filialService.buscarPorId(id));
     }
 
+    @GetMapping("/buscar/{cnpj}")
+    public ResponseEntity<FilialResponseDTO> buscarPorCnpj(@PathVariable String cnpj){
+        return ResponseEntity.ok(filialService.buscarPorCnpj(cnpj));
+    }
+
     @GetMapping("/status/{status}")
     public ResponseEntity<List<FilialResponseDTO>> listarPorStatus(@PathVariable StatusEntidade status){
         return ResponseEntity.ok(filialService.listarPorStatus(status));

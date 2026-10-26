@@ -23,11 +23,11 @@ public class FilialService {
     public FilialResponseDTO cadastrar(FilialRequestDTO requestDTO){
         boolean siglaJaExiste = filialRepository.existsBySiglaIgnoreCase(requestDTO.sigla());
 
-        boolean cnpjJaExiste = filialRepository.existsByCnpjIgnoreCase(requestDTO.cnpj());
-
         if (siglaJaExiste){
             throw new RuntimeException("Ja existe uma filial com essa sigla.");
         }
+
+        boolean cnpjJaExiste = filialRepository.existsByCnpjIgnoreCase(requestDTO.cnpj());
 
         if (cnpjJaExiste){
             throw new RuntimeException("Ja existe uma filial com esse cnpj.");
@@ -76,6 +76,14 @@ public class FilialService {
     public FilialResponseDTO buscarPorId(Long id){
         Filial filialBuscada = filialRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não existe filial com o id "+id));
+
+        return FilialResponseDTO.fromEntity(filialBuscada);
+    }
+
+    @Transactional(readOnly = true)
+    public FilialResponseDTO buscarPorCnpj(String cnpj){
+        Filial filialBuscada = filialRepository.findByCnpj(cnpj)
+                .orElseThrow(() -> new RuntimeException("Não existe filial com o cnpj "+cnpj));
 
         return FilialResponseDTO.fromEntity(filialBuscada);
     }

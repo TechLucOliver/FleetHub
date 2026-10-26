@@ -31,4 +31,9 @@ public record FilialRequestDTO(
         @Size(min = 2, max = 2, message = "Informe a UF corretamente")
         String uf
 ) {
+        public FilialRequestDTO{
+                if (cnpj != null){
+                        cnpj = cnpj.replaceAll("\\D", "");
+                }
+        }
 }

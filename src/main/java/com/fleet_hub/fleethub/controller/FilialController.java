@@ -3,6 +3,7 @@ package com.fleet_hub.fleethub.controller;
 import com.fleet_hub.fleethub.dto.filialDTO.FilialRequestDTO;
 import com.fleet_hub.fleethub.dto.filialDTO.FilialResponseDTO;
 import com.fleet_hub.fleethub.enums.StatusEntidade;
+import com.fleet_hub.fleethub.model.Filial;
 import com.fleet_hub.fleethub.service.FilialService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,12 @@ public class FilialController {
     public ResponseEntity<FilialResponseDTO> inativar(@PathVariable Long id){
         FilialResponseDTO filialInativada = filialService.inativar(id);
         return ResponseEntity.ok(filialInativada);
+    }
+
+    @PatchMapping("/reativar/{id}")
+    public ResponseEntity<FilialResponseDTO> reativar(@PathVariable Long id){
+        FilialResponseDTO filialReativada = filialService.reativar(id);
+        return ResponseEntity.ok(filialReativada);
     }
 
 }

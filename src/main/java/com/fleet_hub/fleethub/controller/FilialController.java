@@ -53,8 +53,13 @@ public class FilialController {
     }
 
     @GetMapping("/uf/{uf}")
-    public ResponseEntity<FilialResponseDTO> buscarPorUf(@PathVariable String uf){
-        return ResponseEntity.ok(filialService.buscarPorUf(uf));
+    public ResponseEntity<List<FilialResponseDTO>> listarPorUf(@PathVariable String uf){
+        return ResponseEntity.ok(filialService.listarPorUf(uf));
+    }
+
+    @GetMapping("/cidade/{cidade}")
+    public ResponseEntity<List<FilialResponseDTO>> listarPorCidade(@PathVariable String cidade){
+        return ResponseEntity.ok(filialService.listarPorCidade(cidade));
     }
 
     @GetMapping("/status/{status}")

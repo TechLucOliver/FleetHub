@@ -97,11 +97,19 @@ public class FilialService {
     }
 
     @Transactional(readOnly = true)
-    public FilialResponseDTO buscarPorUf(String uf){
-        Filial filialBuscada = filialRepository.findByUfIgnoreCase(uf)
-                .orElseThrow(() -> new RuntimeException("Filial não encontrada com a uf "+uf));
+    public List<FilialResponseDTO> listarPorUf(String uf){
+        return filialRepository.findAllByUfIgnoreCase(uf)
+                .stream()
+                .map(FilialResponseDTO::fromEntity)
+                .toList();
+    }
 
-        return FilialResponseDTO.fromEntity(filialBuscada);
+    @Transactional(readOnly = true)
+    public List<FilialResponseDTO> listarPorCidade(String cidade){
+        return filialRepository.findAllByCidadeIgnoreCase(cidade)
+                .stream()
+                .map(FilialResponseDTO::fromEntity)
+                .toList();
     }
 
     @Transactional(readOnly = true)

@@ -14,8 +14,8 @@ public interface FilialRepository extends JpaRepository<Filial, Long> {
     Optional<Filial> findById(Long id);
     Optional<Filial> findByCnpj(String cnpj);
     Optional<Filial> findBySiglaIgnoreCase(String sigla);
-    Optional<Filial> findByCidadeIgnoreCase(String cidade);
-    Optional<Filial> findByUfIgnoreCase(String uf);
+    Optional<Filial> findAllByCidadeIgnoreCase(String cidade);
+    Optional<Filial> findAllByUfIgnoreCase(String uf);
     List<Filial> findByStatus(StatusEntidade statusEntidade);
     boolean existsBySiglaIgnoreCase(String sigla);
     boolean existsByCnpjIgnoreCase(String cnpj);

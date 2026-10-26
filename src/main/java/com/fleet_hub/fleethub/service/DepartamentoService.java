@@ -47,4 +47,12 @@ public class DepartamentoService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public DepartamentoResponseDTO buscarPorId(Long id){
+        Departamento departamentoBuscado = departamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum departamento encontrado com o id "+id));
+
+        return DepartamentoResponseDTO.fromEntity(departamentoBuscado);
+    }
+
 }

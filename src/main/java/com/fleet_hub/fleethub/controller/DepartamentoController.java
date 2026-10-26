@@ -31,4 +31,9 @@ public class DepartamentoController {
         return ResponseEntity.ok(departamentoService.listarTodos());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DepartamentoResponseDTO> buscarPorId(@PathVariable Long id){
+        return ResponseEntity.ok(departamentoService.buscarPorId(id));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.fleet_hub.fleethub.service;
 
 import com.fleet_hub.fleethub.dto.filialDTO.FilialRequestDTO;
 import com.fleet_hub.fleethub.dto.filialDTO.FilialResponseDTO;
+import com.fleet_hub.fleethub.enums.StatusEntidade;
 import com.fleet_hub.fleethub.model.Filial;
 import com.fleet_hub.fleethub.repository.FilialRepository;
 import lombok.AllArgsConstructor;
@@ -78,12 +79,15 @@ public class FilialService {
 
         return FilialResponseDTO.fromEntity(filialBuscada);
     }
-    /*
+
     @Transactional(readOnly = true)
-    public FilialResponseDTO listarPorStatus(StatusEntidade statusEntidade){
-
+    public List<FilialResponseDTO> listarPorStatus(StatusEntidade statusEntidade){
+        return filialRepository.findByStatus(statusEntidade)
+                .stream()
+                .map(FilialResponseDTO::fromEntity)
+                .toList();
     }
-
+    /*
     @Transactional
     public FilialResponseDTO inativar(Long id){
 

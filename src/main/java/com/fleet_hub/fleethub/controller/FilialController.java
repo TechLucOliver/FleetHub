@@ -2,6 +2,7 @@ package com.fleet_hub.fleethub.controller;
 
 import com.fleet_hub.fleethub.dto.filialDTO.FilialRequestDTO;
 import com.fleet_hub.fleethub.dto.filialDTO.FilialResponseDTO;
+import com.fleet_hub.fleethub.enums.StatusEntidade;
 import com.fleet_hub.fleethub.service.FilialService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -39,5 +40,12 @@ public class FilialController {
     public ResponseEntity<FilialResponseDTO> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok(filialService.buscarPorId(id));
     }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<FilialResponseDTO>> listarPorStatus(@PathVariable StatusEntidade status){
+        return ResponseEntity.ok(filialService.listarPorStatus(status));
+    }
+
+
 
 }

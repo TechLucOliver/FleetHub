@@ -84,12 +84,26 @@ public class DepartamentoService {
                 .orElseThrow(() -> new RuntimeException("Não existe um departamento com o id "+id));
 
         if (departamentoBuscado.getStatus() == StatusEntidade.INATIVO){
-            throw new IllegalArgumentException("O departamento já está inativo.");
+            throw new IllegalStateException("O departamento já está inativo.");
         }
 
         departamentoBuscado.setStatus(StatusEntidade.INATIVO);
         Departamento departamentoInativado = departamentoRepository.save(departamentoBuscado);
         return DepartamentoResponseDTO.fromEntity(departamentoInativado);
+    }
+
+    @Transactional
+    public DepartamentoResponseDTO reativar(Long id){
+        Departamento departamentoBuscado = departamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum departamento encontrado com o id "+id));
+
+        if (departamentoBuscado.getStatus() == StatusEntidade.ATIVO){
+            throw new IllegalStateException("O departamento já está ativo.");
+        }
+
+        departamentoBuscado.setStatus(StatusEntidade.ATIVO);
+        Departamento departamentoReativado = departamentoRepository.save(departamentoBuscado);
+        return DepartamentoResponseDTO.fromEntity(departamentoReativado);
     }
 
 }

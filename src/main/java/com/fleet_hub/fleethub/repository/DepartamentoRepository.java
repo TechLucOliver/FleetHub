@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
-    Optional<Departamento> findByNome(String nome);
     List<Departamento> findAllByStatus(StatusEntidade statusEntidade);
     boolean existsByNomeIgnoreCaseAndFilialId(String nome, Long filialId);
 }

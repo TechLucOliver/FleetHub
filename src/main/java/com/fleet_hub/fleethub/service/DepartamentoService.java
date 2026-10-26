@@ -2,6 +2,7 @@ package com.fleet_hub.fleethub.service;
 
 import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoRequestDTO;
 import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoResponseDTO;
+import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoUpdateRequestDTO;
 import com.fleet_hub.fleethub.enums.StatusEntidade;
 import com.fleet_hub.fleethub.model.Departamento;
 import com.fleet_hub.fleethub.model.Filial;
@@ -62,6 +63,19 @@ public class DepartamentoService {
                 .stream()
                 .map(DepartamentoResponseDTO::fromEntity)
                 .toList();
+    }
+
+    @Transactional
+    public DepartamentoResponseDTO editar(Long id, DepartamentoUpdateRequestDTO requestDTO){
+        Departamento departamentoBuscado = departamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum departamento encontrado com o id "+id));
+
+        departamentoBuscado.setNome(requestDTO.nome());
+        departamentoBuscado.setCentroCusto(requestDTO.centroCusto());
+
+        Departamento departamentoAtualizado = departamentoRepository.save(departamentoBuscado);
+        return DepartamentoResponseDTO.fromEntity(departamentoAtualizado);
+
     }
 
 }

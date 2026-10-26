@@ -2,6 +2,7 @@ package com.fleet_hub.fleethub.controller;
 
 import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoRequestDTO;
 import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoResponseDTO;
+import com.fleet_hub.fleethub.dto.departamentoDTO.DepartamentoUpdateRequestDTO;
 import com.fleet_hub.fleethub.enums.StatusEntidade;
 import com.fleet_hub.fleethub.service.DepartamentoService;
 import jakarta.validation.Valid;
@@ -40,6 +41,11 @@ public class DepartamentoController {
     @GetMapping("/status/{status}")
     public ResponseEntity<List<DepartamentoResponseDTO>> listarPorStatus(@PathVariable StatusEntidade status){
         return ResponseEntity.ok(departamentoService.listarPorStatus(status));
+    }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<DepartamentoResponseDTO> editar(@PathVariable Long id, @Valid @RequestBody DepartamentoUpdateRequestDTO requestDTO){
+        return ResponseEntity.ok(departamentoService.editar(id, requestDTO));
     }
 
 }

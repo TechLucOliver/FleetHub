@@ -87,12 +87,21 @@ public class FilialService {
                 .map(FilialResponseDTO::fromEntity)
                 .toList();
     }
-    /*
+
     @Transactional
     public FilialResponseDTO inativar(Long id){
+        Filial filialBuscada = filialRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Não existe filial com o id "+id));
 
+        if (filialBuscada.getStatus() == StatusEntidade.INATIVO){
+            throw new RuntimeException("A entidade já está desativada.");
+        }
+
+        filialBuscada.setStatus(StatusEntidade.INATIVO);
+        Filial filialInativada = filialRepository.save(filialBuscada);
+        return FilialResponseDTO.fromEntity(filialInativada);
     }
-
+    /*
     @Transactional
     public FilialResponseDTO reativar(Long id){
 

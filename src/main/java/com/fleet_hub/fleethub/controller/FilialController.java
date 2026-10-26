@@ -46,6 +46,10 @@ public class FilialController {
         return ResponseEntity.ok(filialService.listarPorStatus(status));
     }
 
-
+    @PatchMapping("/inativar/{id}")
+    public ResponseEntity<FilialResponseDTO> inativar(@PathVariable Long id){
+        FilialResponseDTO filialInativada = filialService.inativar(id);
+        return ResponseEntity.ok(filialInativada);
+    }
 
 }

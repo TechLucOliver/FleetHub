@@ -69,6 +69,22 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
+    public UsuarioResponseDTO buscarPorEmail(String email){
+        Usuario usuarioBuscado = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Nenhum usuário encontrado com o email "+email));
+
+        return UsuarioResponseDTO.fromEntity(usuarioBuscado);
+    }
+
+    @Transactional(readOnly = true)
+    public UsuarioResponseDTO buscarPorNumeroCNH(String numeroCNH){
+        Usuario usuarioBuscado = usuarioRepository.findByNumeroCNH(numeroCNH)
+                .orElseThrow(() -> new RuntimeException("Nenhum usuário encontrado com numero de CNH "+numeroCNH));
+
+        return UsuarioResponseDTO.fromEntity(usuarioBuscado);
+    }
+
+    @Transactional(readOnly = true)
     public List<UsuarioResponseDTO> listarTodos(){
         return usuarioRepository.findAll()
                 .stream()
@@ -109,13 +125,6 @@ public class UsuarioService {
 
     }
 
-    //editar
-
-
-
-    //buscar por email
-    //buscar por numeroCNH
-    //editar
     //inativar
     //reativar
 }

@@ -40,4 +40,16 @@ public class UsuarioController {
         UsuarioResponseDTO usuarioEditado = usuarioService.editar(id, requestDTO);
         return ResponseEntity.ok(usuarioEditado);
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UsuarioResponseDTO> buscarPorEmail(@PathVariable String email){
+        UsuarioResponseDTO usuarioBuscado = usuarioService.buscarPorEmail(email);
+        return ResponseEntity.ok(usuarioBuscado);
+    }
+
+    @GetMapping("/cnh/{numeroCnh}")
+    public ResponseEntity<UsuarioResponseDTO> buscarPorNumeroCNH(@PathVariable String numeroCnh){
+        UsuarioResponseDTO usuarioBuscado = usuarioService.buscarPorNumeroCNH(numeroCnh);
+        return ResponseEntity.ok(usuarioBuscado);
+    }
 }

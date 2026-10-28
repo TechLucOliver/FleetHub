@@ -31,13 +31,13 @@ public class DepartamentoService {
         Filial filialBuscada = filialRepository.findById(requestDTO.filialId())
                 .orElseThrow(() -> new RuntimeException("Não foi encontrada nenhuma filial com o id "+requestDTO.filialId()));
 
-        Departamento novoDepatamento = Departamento.builder()
+        Departamento novoDepartamento = Departamento.builder()
                 .nome(requestDTO.nome())
                 .centroCusto(requestDTO.centroCusto())
                 .filial(filialBuscada)
                 .build();
 
-        Departamento departamentoSalvo = departamentoRepository.save(novoDepatamento);
+        Departamento departamentoSalvo = departamentoRepository.save(novoDepartamento);
         return DepartamentoResponseDTO.fromEntity(departamentoSalvo);
     }
 

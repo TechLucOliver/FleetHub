@@ -10,8 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface FilialRepository extends JpaRepository<Filial, Long> {
-
-    Optional<Filial> findById(Long id);
     Optional<Filial> findByCnpj(String cnpj);
     Optional<Filial> findBySiglaIgnoreCase(String sigla);
     Optional<Filial> findAllByCidadeIgnoreCase(String cidade);

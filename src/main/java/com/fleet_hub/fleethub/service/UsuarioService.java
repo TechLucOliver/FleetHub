@@ -3,6 +3,7 @@ package com.fleet_hub.fleethub.service;
 import com.fleet_hub.fleethub.dto.usuarioDTO.UsuarioRequestDTO;
 import com.fleet_hub.fleethub.dto.usuarioDTO.UsuarioResponseDTO;
 import com.fleet_hub.fleethub.dto.usuarioDTO.UsuarioUpdateRequestDTO;
+import com.fleet_hub.fleethub.enums.StatusEntidade;
 import com.fleet_hub.fleethub.model.Departamento;
 import com.fleet_hub.fleethub.model.Filial;
 import com.fleet_hub.fleethub.model.Usuario;
@@ -125,6 +126,33 @@ public class UsuarioService {
 
     }
 
-    //inativar
-    //reativar
+    @Transactional
+    public UsuarioResponseDTO inativar(Long id){
+        Usuario usuarioBuscado = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum usuário encontrado com o id "+id));
+
+        if (usuarioBuscado.getStatus() == StatusEntidade.INATIVO){
+            throw new RuntimeException("O usuário já está inativo.");
+        }
+
+        usuarioBuscado.setStatus(StatusEntidade.INATIVO);
+
+        Usuario usuarioInativo = usuarioRepository.save(usuarioBuscado);
+        return UsuarioResponseDTO.fromEntity(usuarioInativo);
+    }
+
+    @Transactional
+    public UsuarioResponseDTO reativar(Long id){
+        Usuario usuarioBuscado = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum usuário encontrado com o id "+id));
+
+        if (usuarioBuscado.getStatus() == StatusEntidade.ATIVO){
+            throw new RuntimeException("O usuário já está ativo");
+        }
+
+        usuarioBuscado.setStatus(StatusEntidade.ATIVO);
+
+        Usuario usuarioReativado = usuarioRepository.save(usuarioBuscado);
+        return UsuarioResponseDTO.fromEntity(usuarioReativado);
+    }
 }

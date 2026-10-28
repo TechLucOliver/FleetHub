@@ -52,4 +52,16 @@ public class UsuarioController {
         UsuarioResponseDTO usuarioBuscado = usuarioService.buscarPorNumeroCNH(numeroCnh);
         return ResponseEntity.ok(usuarioBuscado);
     }
+
+    @PatchMapping("/inativar/{id}")
+    public ResponseEntity<UsuarioResponseDTO> inativar(@PathVariable Long id){
+        UsuarioResponseDTO usuarioInativo = usuarioService.inativar(id);
+        return ResponseEntity.ok(usuarioInativo);
+    }
+
+    @PatchMapping("/reativar/{id}")
+    public ResponseEntity<UsuarioResponseDTO> reativar(@PathVariable Long id){
+        UsuarioResponseDTO usuarioAtivo = usuarioService.reativar(id);
+        return ResponseEntity.ok(usuarioAtivo);
+    }
 }

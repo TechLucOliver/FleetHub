@@ -37,9 +37,6 @@ public class DepartamentoService {
 
         Departamento departamentoSalvo = departamentoRepository.save(novoDepartamento);
 
-        filialBuscada.getDepartamentos().add(departamentoSalvo);
-        filialRepository.save(filialBuscada);
-
         return DepartamentoResponseDTO.fromEntity(departamentoSalvo);
     }
 

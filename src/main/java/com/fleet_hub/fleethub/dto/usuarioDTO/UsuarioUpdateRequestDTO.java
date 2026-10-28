@@ -4,6 +4,7 @@ import com.fleet_hub.fleethub.enums.CategoriaCNH;
 import com.fleet_hub.fleethub.enums.TipoUsuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -18,16 +19,19 @@ public record UsuarioUpdateRequestDTO(
         @Email(message = "O email não está no formato adequado.")
         String email,
 
-        @NotBlank(message = "Informar o tipo do usuário é obrigatório!")
+        @NotNull(message = "Informar o tipo do usuário é obrigatório!")
         TipoUsuario tipoUsuario,
 
-        @NotBlank(message = "Informar o numero da CNH é obrigatório!")
-        String numeroCNH,
-
-        @NotBlank(message = "Informar a categoria é obrigatório!")
+        @NotNull(message = "Informar a categoria é obrigatório!")
         CategoriaCNH categoriaCNH,
 
-        @NotBlank(message = "Informar a data de validade é obrigatório!")
-        LocalDate validadeCNH
+        @NotNull(message = "Informar a data de validade é obrigatório!")
+        LocalDate validadeCNH,
+
+        @NotNull(message = "Informar a filial é obrigatório!")
+        Long filialId,
+
+        @NotNull(message = "Informar o departamento é obrigatório!")
+        Long departamentoId
 ) {
 }

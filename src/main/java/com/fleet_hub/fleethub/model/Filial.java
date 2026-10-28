@@ -2,10 +2,7 @@ package com.fleet_hub.fleethub.model;
 
 import com.fleet_hub.fleethub.enums.StatusEntidade;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -51,7 +48,7 @@ public class Filial {
     private LocalDateTime dataCadastro;
 
     @OneToMany(mappedBy = "filial")
-    private Set<Departamento> departamento = new HashSet<>();
+    private Set<Departamento> departamentos = new HashSet<>();
 
     @OneToMany(mappedBy = "filial")
     private Set<Usuario> funcionarios = new HashSet<>();

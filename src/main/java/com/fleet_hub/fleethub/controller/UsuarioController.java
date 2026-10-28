@@ -2,6 +2,7 @@ package com.fleet_hub.fleethub.controller;
 
 import com.fleet_hub.fleethub.dto.usuarioDTO.UsuarioRequestDTO;
 import com.fleet_hub.fleethub.dto.usuarioDTO.UsuarioResponseDTO;
+import com.fleet_hub.fleethub.dto.usuarioDTO.UsuarioUpdateRequestDTO;
 import com.fleet_hub.fleethub.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,11 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listarTodos(){
         return ResponseEntity.ok(usuarioService.listarTodos());
+    }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<UsuarioResponseDTO> editar(@PathVariable Long id, @Valid @RequestBody UsuarioUpdateRequestDTO requestDTO){
+        UsuarioResponseDTO usuarioEditado = usuarioService.editar(id, requestDTO);
+        return ResponseEntity.ok(usuarioEditado);
     }
 }

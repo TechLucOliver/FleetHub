@@ -22,9 +22,7 @@ public class DepartamentoService {
 
     @Transactional
     public DepartamentoResponseDTO cadastrar(DepartamentoRequestDTO requestDTO){
-        boolean jaExisteNessaFilial = departamentoRepository.existsByNomeIgnoreCaseAndFilialId(requestDTO.nome(), requestDTO.filialId());
-
-        if (jaExisteNessaFilial){
+        if (departamentoRepository.existsByNomeIgnoreCaseAndFilialId(requestDTO.nome(), requestDTO.filialId())){
             throw new RuntimeException("Ja existe um departamento com o nome "+requestDTO.nome()+" nessa filial.");
         }
 
@@ -38,6 +36,10 @@ public class DepartamentoService {
                 .build();
 
         Departamento departamentoSalvo = departamentoRepository.save(novoDepartamento);
+
+        filialBuscada.getDepartamentos().add(departamentoSalvo);
+        filialRepository.save(filialBuscada);
+
         return DepartamentoResponseDTO.fromEntity(departamentoSalvo);
     }
 

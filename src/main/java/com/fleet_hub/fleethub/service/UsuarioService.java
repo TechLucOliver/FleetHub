@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -57,8 +58,6 @@ public class UsuarioService {
         return UsuarioResponseDTO.fromEntity(usuarioSalvo);
     }
 
-    //editar
-    //buscar por id
     @Transactional(readOnly = true)
     public UsuarioResponseDTO buscarPorId(Long id){
         Usuario usuarioBuscado = usuarioRepository.findById(id)
@@ -66,6 +65,17 @@ public class UsuarioService {
 
         return UsuarioResponseDTO.fromEntity(usuarioBuscado);
     }
+
+    public List<UsuarioResponseDTO> listarTodos(){
+        return usuarioRepository.findAll()
+                .stream()
+                .map(UsuarioResponseDTO::fromEntity)
+                .toList();
+    }
+
+    //editar
+
+
 
     //buscar por email
     //buscar por numeroCNH

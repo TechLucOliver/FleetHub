@@ -59,6 +59,14 @@ public class UsuarioService {
 
     //editar
     //buscar por id
+    @Transactional(readOnly = true)
+    public UsuarioResponseDTO buscarPorId(Long id){
+        Usuario usuarioBuscado = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id" +id));
+
+        return UsuarioResponseDTO.fromEntity(usuarioBuscado);
+    }
+
     //buscar por email
     //buscar por numeroCNH
     //editar

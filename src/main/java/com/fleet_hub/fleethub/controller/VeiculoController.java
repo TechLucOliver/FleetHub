@@ -84,4 +84,9 @@ public class VeiculoController {
     public ResponseEntity<VeiculoResponseDTO> colocarEmManutencao(@PathVariable Long id) {
         return ResponseEntity.ok(veiculoService.colocarEmManutencao(id));
     }
+
+    @PatchMapping("/uso/{id}")
+    public ResponseEntity<VeiculoResponseDTO> colocarEmUso(@PathVariable Long id) {
+        return ResponseEntity.ok(veiculoService.colocarEmUso(id));
+    }
 }

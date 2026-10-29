@@ -71,12 +71,17 @@ public class VeiculoController {
     }
 
     @PatchMapping("/inativar/{id}")
-    public ResponseEntity<VeiculoResponseDTO> inativar(@PathVariable Long id) {
-        return ResponseEntity.ok(veiculoService.inativar(id));
+    public ResponseEntity<VeiculoResponseDTO> tornarInativo(@PathVariable Long id) {
+        return ResponseEntity.ok(veiculoService.tornarInativo(id));
     }
 
     @PatchMapping("/disponibilizar/{id}")
-    public ResponseEntity<VeiculoResponseDTO> disponibilizar(@PathVariable Long id) {
+    public ResponseEntity<VeiculoResponseDTO> tornarDisponivel(@PathVariable Long id) {
         return ResponseEntity.ok(veiculoService.tornarDisponivel(id));
+    }
+
+    @PatchMapping("/manutencao/{id}")
+    public ResponseEntity<VeiculoResponseDTO> colocarEmManutencao(@PathVariable Long id) {
+        return ResponseEntity.ok(veiculoService.colocarEmManutencao(id));
     }
 }

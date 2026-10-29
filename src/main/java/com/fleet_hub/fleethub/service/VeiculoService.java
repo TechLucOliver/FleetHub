@@ -133,7 +133,7 @@ public class VeiculoService {
     }
 
     @Transactional
-    public VeiculoResponseDTO inativar(Long id) {
+    public VeiculoResponseDTO tornarInativo(Long id) {
         Veiculo veiculoBuscado = veiculoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Nenhum veiculo encontrado com o id "+id));
 
@@ -163,5 +163,22 @@ public class VeiculoService {
 
         Veiculo veiculoDisponivel = veiculoRepository.save(veiculoBuscado);
         return VeiculoResponseDTO.fromEntity(veiculoDisponivel);
+    }
+
+    @Transactional
+    public VeiculoResponseDTO colocarEmManutencao(Long id) {
+        Veiculo veiculoBuscado = veiculoRepository.findById(id)
+                .orElseThrow(()  -> new RuntimeException("Nenhum veiculo encontrado com o id "+id));
+
+        switch (veiculoBuscado.getStatus()) {
+            case DISPONIVEL -> throw new RuntimeException("O veículo deve estar inativo.");
+            case EM_MANUTENCAO -> throw new RuntimeException("O veículo já está em manutenção.");
+            case EM_USO -> throw new RuntimeException("O veiculo está em uso e não pode ser colocado em manutenção.");
+        }
+
+        veiculoBuscado.setStatus(StatusVeiculo.EM_MANUTENCAO);
+
+        Veiculo veiculoEmManutencao = veiculoRepository.save(veiculoBuscado);
+        return VeiculoResponseDTO.fromEntity(veiculoEmManutencao);
     }
 }

@@ -74,4 +74,9 @@ public class VeiculoController {
     public ResponseEntity<VeiculoResponseDTO> inativar(@PathVariable Long id) {
         return ResponseEntity.ok(veiculoService.inativar(id));
     }
+
+    @PatchMapping("/disponibilizar/{id}")
+    public ResponseEntity<VeiculoResponseDTO> disponibilizar(@PathVariable Long id) {
+        return ResponseEntity.ok(veiculoService.tornarDisponivel(id));
+    }
 }

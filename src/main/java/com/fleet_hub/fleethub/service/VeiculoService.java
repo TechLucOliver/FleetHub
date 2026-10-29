@@ -149,4 +149,19 @@ public class VeiculoService {
         Veiculo veiculoInativo = veiculoRepository.save(veiculoBuscado);
         return VeiculoResponseDTO.fromEntity(veiculoInativo);
     }
+
+    @Transactional
+    public VeiculoResponseDTO tornarDisponivel(Long id) {
+        Veiculo veiculoBuscado = veiculoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum veiculo encontrado com o id "+id));
+
+        if (veiculoBuscado.getStatus().equals(StatusVeiculo.DISPONIVEL)){
+            throw new RuntimeException("O veiculo já está disponível.");
+        }
+
+        veiculoBuscado.setStatus(StatusVeiculo.DISPONIVEL);
+
+        Veiculo veiculoDisponivel = veiculoRepository.save(veiculoBuscado);
+        return VeiculoResponseDTO.fromEntity(veiculoDisponivel);
+    }
 }

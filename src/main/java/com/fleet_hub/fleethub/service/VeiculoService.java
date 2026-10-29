@@ -131,4 +131,22 @@ public class VeiculoService {
         Veiculo veiculoEditado = veiculoRepository.save(veiculoBuscado);
         return VeiculoResponseDTO.fromEntity(veiculoEditado);
     }
+
+    @Transactional
+    public VeiculoResponseDTO inativar(Long id) {
+        Veiculo veiculoBuscado = veiculoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum veiculo encontrado com o id "+id));
+
+        switch (veiculoBuscado.getStatus()) {
+            case INATIVO:
+                throw new RuntimeException("O veículo já está inativo");
+            case EM_USO:
+                throw new RuntimeException("O veículo está em uso e não pode ser inativado");
+        }
+
+        veiculoBuscado.setStatus(StatusVeiculo.INATIVO);
+
+        Veiculo veiculoInativo = veiculoRepository.save(veiculoBuscado);
+        return VeiculoResponseDTO.fromEntity(veiculoInativo);
+    }
 }

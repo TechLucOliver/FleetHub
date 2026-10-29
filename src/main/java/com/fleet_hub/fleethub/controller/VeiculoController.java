@@ -64,4 +64,9 @@ public class VeiculoController {
     public ResponseEntity<List<VeiculoResponseDTO>> listarPorStatus(@RequestParam StatusVeiculo status) {
         return  ResponseEntity.ok(veiculoService.listarPorStatus(status));
     }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<VeiculoResponseDTO> editar(@PathVariable Long id, @RequestBody VeiculoRequestDTO veiculoRequestDTO) {
+        return ResponseEntity.ok(veiculoService.editar(id, veiculoRequestDTO));
+    }
 }

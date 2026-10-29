@@ -104,4 +104,31 @@ public class VeiculoService {
                 .map(VeiculoResponseDTO::fromEntity)
                 .toList();
     }
+
+    @Transactional
+    public VeiculoResponseDTO editar(Long id, VeiculoRequestDTO veiculoRequestDTO) {
+        Veiculo veiculoBuscado = veiculoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum veiculo encontrado com o id "+id));
+
+        if (!veiculoBuscado.getPlaca().equalsIgnoreCase(veiculoRequestDTO.placa()) &&
+                veiculoRepository.existsByPlacaIgnoreCase(veiculoRequestDTO.placa())){
+            throw new RuntimeException("Já existe um veiculo com a placa "+veiculoRequestDTO.placa());
+        }
+
+        Filial filialAssociada = filialRepository.findById(veiculoRequestDTO.filialId())
+                .orElseThrow(() -> new RuntimeException("Não existe nenhuma filial com o id "+veiculoRequestDTO.filialId()));
+
+        veiculoBuscado.setPlaca(veiculoRequestDTO.placa());
+        veiculoBuscado.setMarca(veiculoRequestDTO.marca());
+        veiculoBuscado.setModelo(veiculoRequestDTO.modelo());
+        veiculoBuscado.setAnoFabricacao(veiculoRequestDTO.anoFabricacao());
+        veiculoBuscado.setRenavam(veiculoRequestDTO.renavam());
+        veiculoBuscado.setCategoria(veiculoRequestDTO.categoriaVeiculo());
+        veiculoBuscado.setCategoriaCNH(veiculoRequestDTO.categoriaCNH());
+        veiculoBuscado.setOdometroKm(veiculoRequestDTO.odometroKm());
+        veiculoBuscado.setFilial(filialAssociada);
+
+        Veiculo veiculoEditado = veiculoRepository.save(veiculoBuscado);
+        return VeiculoResponseDTO.fromEntity(veiculoEditado);
+    }
 }

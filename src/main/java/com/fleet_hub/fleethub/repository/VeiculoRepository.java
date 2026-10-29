@@ -15,8 +15,8 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
     List<Veiculo> findByMarcaIgnoreCase(String marca);
     List<Veiculo> findByModeloIgnoreCase(String modelo);
     List<Veiculo> findByAnoFabricacao(Integer anoFabricacao);
-    List<Veiculo> findByCategoriaIgnoreCase(CategoriaVeiculo categoria);
-    List<Veiculo> findByStatusIgnoreCase(StatusVeiculo status);
+    List<Veiculo> findByCategoria(CategoriaVeiculo categoria);
+    List<Veiculo> findByStatus(StatusVeiculo status);
     boolean existsByPlacaIgnoreCase(String placa);
 
 }

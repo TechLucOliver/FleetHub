@@ -2,12 +2,13 @@ package com.fleet_hub.fleethub.controller;
 
 import com.fleet_hub.fleethub.dto.veiculoDTO.VeiculoRequestDTO;
 import com.fleet_hub.fleethub.dto.veiculoDTO.VeiculoResponseDTO;
+import com.fleet_hub.fleethub.enums.CategoriaVeiculo;
+import com.fleet_hub.fleethub.enums.StatusVeiculo;
 import com.fleet_hub.fleethub.service.VeiculoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,5 +28,40 @@ public class VeiculoController {
     @GetMapping
     public ResponseEntity<List<VeiculoResponseDTO>> listarTodos() {
         return ResponseEntity.ok(veiculoService.listarTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VeiculoResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(veiculoService.buscarPorId(id));
+    }
+
+    @GetMapping("/placa/{placa}")
+    public ResponseEntity<VeiculoResponseDTO> buscarPorPlaca(@PathVariable String placa) {
+        return ResponseEntity.ok(veiculoService.buscarPorPlaca(placa));
+    }
+
+    @GetMapping("/marca/{marca}")
+    public ResponseEntity<List<VeiculoResponseDTO>> listarPorMarca(@PathVariable String marca) {
+        return ResponseEntity.ok(veiculoService.listarPorMarca(marca));
+    }
+
+    @GetMapping("/modelo/{modelo}")
+    public ResponseEntity<List<VeiculoResponseDTO>> listarPorModelo(@PathVariable String modelo) {
+        return ResponseEntity.ok(veiculoService.listarPorModelo(modelo));
+    }
+
+    @GetMapping("/ano/{anoFabricacao}")
+    public ResponseEntity<List<VeiculoResponseDTO>> listarPorAnoFabricacao(@PathVariable Integer anoFabricacao) {
+        return ResponseEntity.ok(veiculoService.listarPorAnoFabricacao(anoFabricacao));
+    }
+
+    @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<VeiculoResponseDTO>> listarPorCategoria(@PathVariable CategoriaVeiculo categoria) {
+        return ResponseEntity.ok(veiculoService.listarPorCategoria(categoria));
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<List<VeiculoResponseDTO>> listarPorStatus(@RequestParam StatusVeiculo status) {
+        return  ResponseEntity.ok(veiculoService.listarPorStatus(status));
     }
 }

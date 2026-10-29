@@ -2,6 +2,8 @@ package com.fleet_hub.fleethub.service;
 
 import com.fleet_hub.fleethub.dto.veiculoDTO.VeiculoRequestDTO;
 import com.fleet_hub.fleethub.dto.veiculoDTO.VeiculoResponseDTO;
+import com.fleet_hub.fleethub.enums.CategoriaVeiculo;
+import com.fleet_hub.fleethub.enums.StatusVeiculo;
 import com.fleet_hub.fleethub.model.Filial;
 import com.fleet_hub.fleethub.model.Veiculo;
 import com.fleet_hub.fleethub.repository.FilialRepository;
@@ -46,6 +48,58 @@ public class VeiculoService {
     @Transactional(readOnly = true)
     public List<VeiculoResponseDTO> listarTodos() {
         return veiculoRepository.findAll()
+                .stream()
+                .map(VeiculoResponseDTO::fromEntity)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public VeiculoResponseDTO buscarPorId(Long id) {
+        return VeiculoResponseDTO.fromEntity(veiculoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum veiculo encontrado com o id "+id)));
+    }
+
+    @Transactional(readOnly = true)
+    public VeiculoResponseDTO buscarPorPlaca(String placa) {
+        return VeiculoResponseDTO.fromEntity(veiculoRepository.findByPlacaIgnoreCase(placa)
+                .orElseThrow(() -> new RuntimeException("Nenhum veículo encontrado com a placa "+placa)));
+    }
+
+    @Transactional(readOnly = true)
+    public List<VeiculoResponseDTO> listarPorMarca(String marca) {
+        return veiculoRepository.findByMarcaIgnoreCase(marca)
+                .stream()
+                .map(VeiculoResponseDTO::fromEntity)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<VeiculoResponseDTO> listarPorModelo(String modelo) {
+        return veiculoRepository.findByModeloIgnoreCase(modelo)
+                .stream()
+                .map(VeiculoResponseDTO::fromEntity)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<VeiculoResponseDTO> listarPorAnoFabricacao(int anoFabricacao) {
+        return veiculoRepository.findByAnoFabricacao(anoFabricacao)
+                .stream()
+                .map(VeiculoResponseDTO::fromEntity)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<VeiculoResponseDTO> listarPorCategoria(CategoriaVeiculo categoria) {
+        return veiculoRepository.findByCategoria(categoria)
+                .stream()
+                .map(VeiculoResponseDTO::fromEntity)
+                .toList();
+    }
+
+    @Transactional
+    public List<VeiculoResponseDTO> listarPorStatus(StatusVeiculo status) {
+        return veiculoRepository.findByStatus(status)
                 .stream()
                 .map(VeiculoResponseDTO::fromEntity)
                 .toList();

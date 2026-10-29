@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class VeiculoService {
@@ -39,5 +41,13 @@ public class VeiculoService {
 
         Veiculo veiculoCadastrado = veiculoRepository.save(novoVeiculo);
         return VeiculoResponseDTO.fromEntity(veiculoCadastrado);
+    }
+
+    @Transactional(readOnly = true)
+    public List<VeiculoResponseDTO> listarTodos() {
+        return veiculoRepository.findAll()
+                .stream()
+                .map(VeiculoResponseDTO::fromEntity)
+                .toList();
     }
 }

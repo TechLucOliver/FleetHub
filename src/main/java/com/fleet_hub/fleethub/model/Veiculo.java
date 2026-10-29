@@ -26,7 +26,7 @@ public class Veiculo {
     @Column(nullable = false, length = 15)
     private String marca;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 50)
     private String modelo;
 
     @Column(nullable = false, length = 4)
